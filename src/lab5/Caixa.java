@@ -1,7 +1,5 @@
 package lab5;
 
-import java.util.HashSet;
-
 /**
  * Representação do caixa do sistema. Todo caixa contém um valor e uma taxa.
  * 
@@ -25,7 +23,7 @@ public class Caixa {
 			throw new IllegalArgumentException("Erro na inicializacao: Taxa nao pode ser inferior a 0");
 		}
 		if(taxa > 1) {
-			throw new IllegalArgumentException("Taxa inválida");
+			throw new IllegalArgumentException("Erro na inicializacao: Taxa nao pode ser superior a 1");
 		}
 		
 		this.valor = valor;
@@ -41,6 +39,11 @@ public class Caixa {
 		return this.valor;
 	}
 	
+	/**
+	 * Altera o valor do atributo valor do caixa.
+	 * 
+	 * @param valor o novo valor.
+	 */
 	public void setValor(int valor) {
 		this.valor = valor;
 	}
@@ -61,26 +64,6 @@ public class Caixa {
 	 */
 	public void adicionaValor(int valor) {
 		this.valor  += valor;
-	}
-	
-	/**
-	 * Retorna o valor em centavos de um cenario encerrado que será destinado
-	 * ao caixa.
-	 * 
-	 * @param cenario o número do cenario.
-	 * @return o valor em cantavos.
-	 */
-	public int getCaixaCenario(Cenario cenario) {
-		if(cenario.getEstado().equals("Nao finalizado")) {
-			throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario ainda esta aberto");
-		}
-		
-		int total = 0;
-		HashSet<Aposta> apostasPerdedoras = cenario.apostasPerdedoras(cenario.booleanaEstado());
-		for(Aposta aposta : apostasPerdedoras) {
-			total += aposta.retornoCaixa(this.taxa);
-		}
-		return total;
 	}
 
 	/**

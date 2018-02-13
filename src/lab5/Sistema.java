@@ -224,9 +224,9 @@ public class Sistema {
 	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor) {
 		Cenario cen = getCenario(cenario);
 		ApostaAssegurada aposta = cen.getApostaAssegurada(apostaAssegurada);
-		Seguro novoSeguro = new SeguroValor(aposta.getCusto(), valor);
+		Seguro novoSeguro = new SeguroValor(aposta.getSeguro().getCusto(), valor);
 		aposta.setSeguro(novoSeguro);
-		return cen.setApostaAssegurada(apostaAssegurada, aposta);
+		return apostaAssegurada;
 	}
 	
 	/**
@@ -240,9 +240,9 @@ public class Sistema {
 	public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa) {
 		Cenario cen = getCenario(cenario);
 		ApostaAssegurada aposta = cen.getApostaAssegurada(apostaAssegurada);
-		Seguro novoSeguro = new SeguroTaxa(aposta.getCusto(), aposta.getValor(), taxa);
+		Seguro novoSeguro = new SeguroTaxa(aposta.getSeguro().getCusto(), aposta.getValor(), taxa);
 		aposta.setSeguro(novoSeguro);
-		return cen.setApostaAssegurada(apostaAssegurada, aposta);
+		return apostaAssegurada;
 	}
 	
 	/**
@@ -353,7 +353,16 @@ public class Sistema {
 		}
 		
 		Cenario cen = getCenario(cenario);
-		return this.caixa.getCaixaCenario(cen);
+		if(cen.getEstado().equals("Nao finalizado")) {
+			throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario ainda esta aberto");
+		}
+		
+		int total = 0;
+		HashSet<Aposta> apostasPerdedoras = cen.apostasPerdedoras(cen.booleanaEstado());
+		for(Aposta aposta : apostasPerdedoras) {
+			total += aposta.retornoCaixa(this.caixa.getTaxa());
+		}
+		return total;
 	}
 	
 	/**

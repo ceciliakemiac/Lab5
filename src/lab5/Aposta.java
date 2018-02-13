@@ -77,15 +77,6 @@ public class Aposta {
 	}
 	
 	/**
-	 * Retorna o custo da aposta
-	 * 
-	 * @return
-	 */
-	public int getCusto() {
-		return 0;
-	}
-	
-	/**
 	 * Retorna um valor booleano para a previsão, dependendo se ela indica que
 	 * vai acontecer ou não.
 	 * 
@@ -96,8 +87,7 @@ public class Aposta {
 	}
 	
 	/**
-	 * Retorna o valor da aposta que deve ser mandado para ser distribuído entre as
-	 * apostas vencedoras caso ela perca.
+	 * Retorna o valor da aposta que deve ser mandado para o caixa caso ela perca.
 	 * 
 	 * @param taxaCaixa
 	 * @return 
@@ -105,14 +95,6 @@ public class Aposta {
 	public int retornoCaixa(double taxaCaixa) {
 		double valor = this.getValor() * taxaCaixa;
 		return (int)valor;
-	}
-	
-	/**
-	 * Retorna o valor da aposta que deve ser mandado para o caixa caso ela perca.
-	 * @return
-	 */
-	public int getCaixa() {
-		return 0;
 	}
 
 	/**

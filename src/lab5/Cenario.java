@@ -64,17 +64,24 @@ public class Cenario {
 		this.estado = estado;
 	}
 	
+	/**
+	 * Retorna o bonus do cenario.
+	 * 
+	 * @return 0 para cenarios sem bonus.
+	 */
 	public int getBonus() {
 		return 0;
 	}
 	
+	/**
+	 * Retorna uma aposta assegurada de acordo com seu número correspondente passado
+	 * como parâmetro.
+	 * 
+	 * @param aposta o número da aposta assegurada.
+	 * @return a aposta assegurada.
+	 */
 	public ApostaAssegurada getApostaAssegurada(int aposta) {
 		return this.apostasAsseguradas.get(aposta);
-	}
-	
-	public int setApostaAssegurada(int aposta, ApostaAssegurada apostaAssegurada) {
-		this.apostasAsseguradas.put(aposta, apostaAssegurada);
-		return aposta;
 	}
 	
 	/**
@@ -105,6 +112,12 @@ public class Cenario {
 		}
 	}
 	
+	/**
+	 * Cadastrar a aposta assegurada passada como parâmetro no cenario em questão.
+	 * 
+	 * @param aposta a aposta a ser cadastrada.
+	 * @return o número que representa a aposta assegurada cadastrada.
+	 */
 	public int cadastrarApostaAssegurada(ApostaAssegurada aposta) {
 		if(aposta == null) {
 			return -1;
@@ -168,17 +181,17 @@ public class Cenario {
 		return apostas;
 	}
 	
-	/*public int getCustos() {
-		int valor = 0;
-		for(Aposta aposta : this.apostas) {
-			valor += aposta.getCusto();
-		}
-		return valor;
-	}*/
-	
+	/**
+	 * Retorna o valor assegurado das apostas asseguradas perdedoras que será destinado
+	 * ao caixa do sistema. O parâmetro booleano representa se o cenário ocorreu ou não,
+	 * e assim descobrimos quais apostas serão consideradas perdedoras.
+	 * 
+	 * @param ocorreu o valor booleano do estado do cenário.
+	 * @return o valor dos seguros destinado ao caixa.
+	 */
 	public int apostasAsseguradasPerdedoras(boolean ocorreu) {
 		int valor = 0;
-		for(Aposta aposta : this.apostasAsseguradas.values()) {
+		for(ApostaAssegurada aposta : this.apostasAsseguradas.values()) {
 			if(aposta.booleanPrevisao() != ocorreu) {
 				valor += aposta.getCaixa();
 			}
