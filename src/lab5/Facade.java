@@ -19,10 +19,23 @@ public class Facade {
 		EasyAccept.main(args);
 	}
 	
+	/**
+	 * Cadastrar um cenário.
+	 * @param descricao
+	 * 
+	 * @return o inteiro que representa o cenário.
+	 */
 	public int cadastrarCenario(String descricao) {
 		return sistema.cadastrarCenario(descricao);
 	}
 	
+	/**
+	 * Cadastrar um cenário bonus.
+	 * @param descricao
+	 * @param bonus
+	 * 
+	 * @return o inteiro que representa o cenário cadastrado.
+	 */
 	public int cadastrarCenario(String descricao, int bonus) {
 		return sistema.cadastrarCenario(descricao, bonus);
 	}
@@ -60,18 +73,46 @@ public class Facade {
 		return sistema.cadastrarAposta(cenario, apostador, valor, previsao);
 	}
 	
+	/**
+	 * Cadastra uma aposta assegurada por valor no cenário passado como parâmetro.
+	 * 
+	 * @param cenario o número do cenário.
+	 * @param apostador o nome do apostador.
+	 * @param valor o valor da aposta.
+	 * @param previsao a previsão da aposta.
+	 * @param valorAssegurado o  valor assegurado.
+	 * @param custo o custo da aposta.
+	 * @return o inteiro que representa a aposta.
+	 */
 	public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao, int valorAssegurado, int custo) {
 		return sistema.cadastrarApostaSeguraValor(cenario, apostador, valor, previsao, valorAssegurado, custo);
 	}
 	
+	/**
+	 * Cadastra uma aposta assegurada por taxa no cenário passado como parâmetro.
+	 * 
+	 * @param cenario o número do cenário.
+	 * @param apostador o nome do apostador.
+	 * @param valor o valor da aposta.
+	 * @param previsao a previsão da aposta.
+	 * @param taxa a taxa da aposta.
+	 * @param custo o custo da aposta.
+	 * @return o inteiro que representa a aposta.
+	 */
 	public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa, int custo) {
 		return sistema.cadastrarApostaSeguraTaxa(cenario, apostador, valor, previsao, taxa, custo);
 	}
 	
+	/**
+	 * Alterar o seguro de uma aposta assegurada por taxa para valor.
+	 */
 	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor) {
 		return sistema.alterarSeguroValor(cenario, apostaAssegurada, valor);
 	}
 	
+	/**
+	 * Alterar o seguro de uma aposta assegurada por valor para taxa.
+	 */
 	public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa) {
 		return sistema.alterarSeguroTaxa(cenario, apostaAssegurada, taxa);
 	}
