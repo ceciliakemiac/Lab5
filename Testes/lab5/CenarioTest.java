@@ -55,13 +55,6 @@ public class CenarioTest {
 		assertEquals("Finalizado(n ocorreu)", this.cenario.getEstado());
 	}
 	
-	public void testSetApostaAssegurada() {
-		ApostaAssegurada aposta = new ApostaAssegurada("a", 1000, "VAI ACONTECER", 200, 50);
-		ApostaAssegurada aposta2 = new ApostaAssegurada("b", 1000, "VAI ACONTECER", 200, 50);
-		this.cenario.cadastrarApostaAssegurada(aposta);
-		assertEquals(1, this.cenario.setApostaAssegurada(1, aposta2));
-	}
-	
 	/**
 	 * Testa se o valor booleano true derivado do estado "ocorreu" está correto.
 	 */
@@ -95,6 +88,15 @@ public class CenarioTest {
 	public void testCadastrarAposta() {
 		Aposta aposta = new Aposta("a", 2, "N VAI ACONTECER");
 		assertTrue(this.cenario.cadastrarAposta(aposta));
+	}
+	
+	/**
+	 * Testa se é possível cadastrar uma aposta assegurada.
+	 */
+	@Test
+	public void testCadastrarApostaAssegurada() {
+		ApostaAssegurada aposta = new ApostaAssegurada("www", 3000, "VAI ACONTECER", 400, 50);
+		assertEquals(1, this.cenario.cadastrarApostaAssegurada(aposta));
 	}
 	
 	/**
@@ -158,6 +160,19 @@ public class CenarioTest {
 		HashSet<Aposta> perdedores = new HashSet<>();
 		perdedores.add(apostei);
 		assertEquals(perdedores, this.cenario.apostasPerdedoras(true));
+	}
+	
+	/**
+	 * Testa se o valor assegurado das apostas asseguradas perdedoras está correto.
+	 */
+	@Test
+	public void testApostasAsseguradasPerdedoras() {
+		ApostaAssegurada aposta = new ApostaAssegurada("www", 1000, "N VAI ACONTECER", 500, 40);
+		ApostaAssegurada aposta2 = new ApostaAssegurada("yyy", 1000, "VAI ACONTECER", 0.05, 10);
+		this.cenario.cadastrarApostaAssegurada(aposta);
+		this.cenario.cadastrarApostaAssegurada(aposta2);
+		this.cenario.setEstado("Finalizado(ocorreu)");
+		assertEquals(-500, this.cenario.apostasAsseguradasPerdedoras(true));
 	}
 	
 	/**

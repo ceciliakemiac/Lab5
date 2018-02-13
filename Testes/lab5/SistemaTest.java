@@ -142,6 +142,29 @@ public class SistemaTest {
 	}
 	
 	/**
+	 * Testa se é possível cadastrar uma aposta assegurada por valor em um cenário
+	 * já cadastrado.
+	 */
+	@Test
+	public void testCadastrarApostaSeguraValor() {
+		this.sistema.inicializa(100, 0.05);
+		this.sistema.cadastrarCenario("bbb");
+		assertEquals(1, this.sistema.cadastrarApostaSeguraValor(1, "raimundo", 90, "VAI ACONTECER", 10, 1));
+	}
+	
+	/**
+	 * Testa se é possível cadastrar uma aposta assegurada por taxa em um cenário
+	 * já cadastrado.
+	 */
+	@Test
+	public void testCadastrarApostaSeguraTaxa() {
+		this.sistema.inicializa(100, 0.05);
+		this.sistema.cadastrarCenario("bbb");
+		this.sistema.cadastrarApostaSeguraValor(1, "raimundo", 90, "VAI ACONTECER", 10, 1);
+		assertEquals(2, this.sistema.cadastrarApostaSeguraTaxa(1, "raimundo", 90, "VAI ACONTECER", 0.01, 1));
+	}
+	
+	/**
 	 * Testa se uma aposta assegurada por taxa é alterada corretamente para seguro por valor.
 	 */
 	@Test
