@@ -32,6 +32,10 @@ public class Cenario {
 		this.numero = numero;
 	}
 	
+	public String getDescricao() {
+		return this.descricao;
+	}
+	
 	/**
 	 * Retorna o número do cenário.
 	 * 
@@ -57,7 +61,7 @@ public class Cenario {
 	 * @param estado o estado do cenário.
 	 */
 	public void setEstado(String estado) {
-		if(!estado.equals("Finalizado(ocorreu)") && !estado.equals("Finalizado(n ocorreu)")) {
+		if(!estado.equals("Finalizado (ocorreu)") && !estado.equals("Finalizado (n ocorreu)")) {
 			throw new IllegalArgumentException("Estado inexistente...");
 		}
 		
@@ -94,7 +98,7 @@ public class Cenario {
 		if(this.estado.equals("Nao finalizado")) {
 			throw new IllegalArgumentException("Cenário nao finalizado");
 		}
-		return this.estado.equals("Finalizado(ocorreu)");
+		return this.estado.equals("Finalizado (ocorreu)");
 	}
 	
 	/**

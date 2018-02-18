@@ -10,6 +10,7 @@ import java.util.*;
 public class Sistema {
 	private Caixa caixa;
 	private ArrayList<Cenario> cenarios = new ArrayList<>();
+	private Ordem ordem = new Ordem();
 	
 	/**
 	 * Inicializa o caixa, de acordo com os parâmetros que representam o valor e a taxa.
@@ -83,6 +84,15 @@ public class Sistema {
 		return this.cenarios.get(num - 1);
 	}
 	
+	public void alterarOrdem(String ordem) {
+		this.ordem.setOrdem(ordem);
+		ordenaCenarios();
+	}
+	
+	private void ordenaCenarios() {
+		this.ordem.ordenaCenarios(this.cenarios);
+	}
+	
 	/**
 	 * Retorna a String que representa o cenario cujo número foi passado como parâmetro.
 	 * 
@@ -97,7 +107,20 @@ public class Sistema {
 			throw new IndexOutOfBoundsException("Erro na consulta de cenario: Cenario nao cadastrado");
 		}
 		
+		alterarOrdem("cadastro");
 		Cenario cen = getCenario(num);
+		return cen.toString();
+	}
+	
+	public String exibirCenarioOrdenado(int cenario) {
+		if(cenario <= 0) {
+			throw new IllegalArgumentException("Erro na consulta de cenario ordenado: Cenario invalido");
+		}
+		if(cenario > this.cenarios.size()) {
+			throw new IndexOutOfBoundsException("Erro na consulta de cenario ordenado: Cenario nao cadastrado");
+		}
+		
+		Cenario cen = getCenario(cenario);
 		return cen.toString();
 	}
 	
@@ -314,9 +337,9 @@ public class Sistema {
 		}
 		
 		if(ocorreu) {
-			cen.setEstado("Finalizado(ocorreu)");
+			cen.setEstado("Finalizado (ocorreu)");
 		}else {
-			cen.setEstado("Finalizado(n ocorreu)");
+			cen.setEstado("Finalizado (n ocorreu)");
 		}
 		mandaProCaixa(cenario);
 	}
